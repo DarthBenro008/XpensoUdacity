@@ -4,6 +4,7 @@
     <string name="title_history">History</string>
     <string name="title_settings">Settings</string>
     <string name="title_add_expenses">Add Expenses</string>
+    <string name="title_detail">Detailed Information</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -41,6 +42,16 @@
     <string name="online">Online Payment</string>
     <string name="desc">Description</string>
     <string name="add_transac">Add Transaction</string>
+
+    //DetailFrag
+    <string name="paid_detail">Entity : </string>
+    <string name="desc_detail">Description : </string>
+    <string name="time_detail">Time : </string>
+    <string name="payment_mode_detail">Payment Mode : </string>
+    <string name="transaction_type_detail">Transaction Type : </string>
+    <string name="delete_transaction">Delete Transaction</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 

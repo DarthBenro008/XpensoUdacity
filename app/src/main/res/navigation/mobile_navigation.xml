@@ -45,8 +45,8 @@
     <fragment
         android:id="@+id/navigation_detail_fragment"
         android:name="com.benrostudios.xpenso.ui.detail.DetailFragment"
-        android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" >
+        android:label="@string/title_detail"
+        tools:layout="@layout/detail_fragment">
         <argument
             android:name="expenses"
             app:argType="com.benrostudios.xpenso.db.Expenses[]" />
