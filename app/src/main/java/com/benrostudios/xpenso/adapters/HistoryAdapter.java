@@ -33,7 +33,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
     private int origin;
     public static final String PASS_TAG = "pass_tag";
 
-    public HistoryAdapter(Context mContext, List<Expenses> expenses,int origin) {
+    public HistoryAdapter(Context mContext, List<Expenses> expenses, int origin) {
         this.mContext = mContext;
         this.expenses = expenses;
         this.origin = origin;
@@ -49,39 +49,39 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryI
 
     @Override
     public void onBindViewHolder(@NonNull HistoryItemViewHolder holder, int position) {
-        holder.amount.setText(""+expenses.get(position).getAmount());
+        holder.amount.setText("" + expenses.get(position).getAmount());
         holder.withdrawer.setText(expenses.get(position).getPerson());
         holder.time.setText(converter(expenses.get(position).getTime()));
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(PASS_TAG,(Serializable) expenses.get(position));
-                if(origin == R.string.title_history){
+                bundle.putSerializable(PASS_TAG, (Serializable) expenses.get(position));
+                if (origin == R.string.title_history) {
                     Navigation.findNavController(v).navigate(R.id.passaction, bundle);
-                }else {
+                } else {
                     Navigation.findNavController(v).navigate(R.id.action_navigation_home_to_navigation_detail_fragment, bundle);
                 }
             }
         });
-        if(expenses.get(position).getType().equals(mContext.getResources().getString(R.string.expenditure))){
-                holder.image.setImageResource(R.drawable.ic_attach_money_black_24dp);
-                holder.image.setImageTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.red_money)));
-
-
-        }else{
+        if (expenses.get(position).getType().equals(mContext.getResources().getString(R.string.expenditure))) {
+            holder.image.setImageResource(R.drawable.ic_attach_money_black_24dp);
+            holder.image.setImageTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.red_money)));
+            holder.image.setContentDescription(mContext.getResources().getString(R.string.income));
+        } else {
             holder.image.setImageResource(R.drawable.ic_attach_money_black_24dp);
             holder.image.setImageTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.green_money)));
-            Log.d("hello",expenses.get(position).getType()+" "+mContext.getResources().getString(R.string.expenditure));
+            holder.image.setContentDescription(mContext.getResources().getString(R.string.expenditure));
         }
 
     }
 
-    public String converter(Date date){
+    public String converter(Date date) {
         SimpleDateFormat sdf;
         sdf = new SimpleDateFormat("dd MMM, h:mmaa");
         return sdf.format(date);
     }
+
     @Override
     public int getItemCount() {
         return expenses.size();

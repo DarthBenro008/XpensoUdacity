@@ -9,6 +9,7 @@
 
     <!-- Display quantity of the ingredient-->
     <ImageView
+        android:importantForAccessibility="no"
         android:id="@+id/widget_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

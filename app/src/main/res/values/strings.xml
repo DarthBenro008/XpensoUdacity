@@ -61,4 +61,8 @@
     //SharedPrefs
     <string name="pref_transaction_list_key">pref_transaction_list</string>
 
+    //Accessibility
+    <string name="cd_progress">Circular Progressbar</string>
+    <string name="cd_indicator">Income/Expense Indicator</string>
+
 </resources>
