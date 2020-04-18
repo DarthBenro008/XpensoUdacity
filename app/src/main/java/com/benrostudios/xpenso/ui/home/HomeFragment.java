@@ -1,6 +1,11 @@
 package com.benrostudios.xpenso.ui.home;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +26,8 @@ import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.adapters.HistoryAdapter;
 import com.benrostudios.xpenso.db.Expenses;
 import com.benrostudios.xpenso.utils.SharedUtils;
+import com.benrostudios.xpenso.utils.TransactionUtils;
+import com.benrostudios.xpenso.widget.NewAppWidget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -94,6 +101,8 @@ public class HomeFragment extends Fragment {
             public void onChanged(List<Expenses> expenses) {
                 adapter = new HistoryAdapter(getContext(), expenses, R.string.title_home);
                 updateRecycler(adapter);
+                updateSharedPreference(expenses);
+                sendBroadcastToWidget();
             }
         });
     }
@@ -112,4 +121,25 @@ public class HomeFragment extends Fragment {
             sharedUtils.saveFirstTime(false);
         }
     }
+    private void updateSharedPreference(List<Expenses> expenses) {
+        // Get a instance of SharedPreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        // Get the editor object
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Get the ingredient list and convert the list to string
+        String ingredientString = TransactionUtils.toExpensesString(expenses);
+        editor.putString(getContext().getString(R.string.pref_transaction_list_key), ingredientString);
+        editor.apply();
+    }
+
+    private void sendBroadcastToWidget() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getContext(), NewAppWidget.class));
+        Intent updateAppWidgetIntent = new Intent();
+        updateAppWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        updateAppWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        getContext().sendBroadcast(updateAppWidgetIntent);
+    }
+
 }

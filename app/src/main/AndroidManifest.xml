@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <service
+            android:name=".widget.ListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

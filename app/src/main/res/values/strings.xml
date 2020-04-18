@@ -51,8 +51,14 @@
     <string name="transaction_type_detail">Transaction Type : </string>
     <string name="delete_transaction">Delete Transaction</string>
     <string name="appwidget_text">EXAMPLE</string>
+
+
+    //Widget
     <string name="add_widget">Add widget</string>
+    <string name="empty_text_widget">Click here to open Xpenso</string>
+    <string name="widget_title">Your Recent Transactions</string>
 
-
+    //SharedPrefs
+    <string name="pref_transaction_list_key">pref_transaction_list</string>
 
 </resources>

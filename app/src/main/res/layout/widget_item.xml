@@ -1,0 +1,52 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/cardViewSecondaryBackground"
+    android:padding="@dimen/widget_margin">
+
+    <!-- Display quantity of the ingredient-->
+    <ImageView
+        android:id="@+id/widget_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/margin_activity_small"
+        android:layout_marginStart="@dimen/margin_activity_small"
+        android:padding="@dimen/margin_activity_small"
+        android:src="@drawable/ic_attach_money_black_24dp"/>
+
+    <!-- Display measure of the ingredient-->
+    <TextView
+        android:id="@+id/amount_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:paddingTop="@dimen/margin_activity_small"
+        android:paddingBottom="@dimen/margin_activity_small"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="$4603" />
+
+    <!-- Display ingredient -->
+    <TextView
+        android:id="@+id/person_widget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/nunito_sans_extra_bold"
+        android:paddingStart="@dimen/margin_activity"
+        android:paddingLeft="@dimen/margin_activity"
+        android:paddingTop="@dimen/margin_activity_small"
+        android:paddingEnd="@dimen/margin_activity"
+        android:paddingRight="@dimen/margin_activity"
+        android:paddingBottom="@dimen/margin_activity_small"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="Akshay" />
+
+</LinearLayout>
