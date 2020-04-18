@@ -1,8 +1,9 @@
-package com.benrostudios.xpenso;
+package com.benrostudios.xpenso.ui;
 
 import android.os.Bundle;
 import android.util.Log;
 
+import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.db.Expenses;
 import com.benrostudios.xpenso.utils.SharedUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

@@ -9,13 +9,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
-import com.benrostudios.xpenso.MainActivity;
+import com.benrostudios.xpenso.ui.MainActivity;
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.db.Expenses;
 import com.benrostudios.xpenso.utils.TransactionUtils;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**

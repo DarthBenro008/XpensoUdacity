@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.benrostudios.xpenso.MainActivity;
+import com.benrostudios.xpenso.ui.MainActivity;
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.ui.auth.signin.SignIn;
 import com.benrostudios.xpenso.ui.auth.signup.SignUp;
