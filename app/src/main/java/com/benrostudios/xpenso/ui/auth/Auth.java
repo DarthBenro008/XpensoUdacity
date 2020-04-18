@@ -10,17 +10,20 @@ import com.benrostudios.xpenso.MainActivity;
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.ui.auth.signin.SignIn;
 import com.benrostudios.xpenso.ui.auth.signup.SignUp;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, SignIn.SwitchToSignUp {
     private FirebaseAuth mAuth;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         replaceFragment(new SignIn());
     }
 
@@ -50,6 +53,9 @@ public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, Si
 
     @Override
     public void authenticated() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Event.LOGIN,"loggedin");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN,bundle);
         updateUI();
     }
 

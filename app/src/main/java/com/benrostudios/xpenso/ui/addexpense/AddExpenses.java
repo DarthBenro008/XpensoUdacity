@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.db.Expenses;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.w3c.dom.Text;
 
@@ -56,6 +57,7 @@ public class AddExpenses extends Fragment {
 
     private AddExpensesViewModel mViewModel;
     private boolean validation;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public static AddExpenses newInstance() {
         return new AddExpenses();
@@ -74,6 +76,7 @@ public class AddExpenses extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AddExpensesViewModel.class);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
     }
 
@@ -108,6 +111,9 @@ public class AddExpenses extends Fragment {
         Expenses newTransaction = new Expenses(entity.getText().toString(), Double.valueOf(amount.getText().toString()), incomeString, modeString, currentTime, desc.getText().toString());
         mViewModel.insertTransaction(newTransaction);
         mViewModel.pushData(newTransaction, currentTime.toString());
+        Bundle bundle = new Bundle();
+        bundle.putString("Transaction",newTransaction.getTime().toString());
+        mFirebaseAnalytics.logEvent("Transaction",bundle);
         Navigation.findNavController(getView()).navigateUp();
     }
 
