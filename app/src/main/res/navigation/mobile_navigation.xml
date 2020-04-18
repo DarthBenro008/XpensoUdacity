@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.benrostudios.xpenso.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_addExpenses"
+            app:destination="@id/navigation_add_expenses" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_detail_fragment"
+            app:destination="@id/navigation_detail_fragment"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.benrostudios.xpenso.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/passaction"
+            app:destination="@id/navigation_detail_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/navigation_history"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.benrostudios.xpenso.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/navigation_add_expenses"
+        android:name="com.benrostudios.xpenso.ui.addexpense.AddExpenses"
+        android:label="@string/title_add_expenses"
+        tools:layout="@layout/add_expenses_fragment" />
+    <fragment
+        android:id="@+id/navigation_detail_fragment"
+        android:name="com.benrostudios.xpenso.ui.detail.DetailFragment"
+        android:label="detail_fragment"
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="expenses"
+            app:argType="com.benrostudios.xpenso.db.Expenses[]" />
+    </fragment>
+</navigation>

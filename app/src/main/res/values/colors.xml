@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+
+    <color name="transparent">@android:color/transparent</color>
+
+    <color name="appBackground">#000000</color>
+
+    <color name="cardViewBackground">#292929</color>
+    <color name="cardViewSecondaryBackground">#116CD5</color>
+    <color name="cardViewTertiaryBackground">#FFFFFF</color>
+
+
+    <color name="bottomAppBarBackground">#17283C</color>
+    <color name="bottomAppBarItemSelected">#64BED0</color>
+    <color name="bottomAppBarItemUnselected">#526174</color>
+
+
+    <color name="textColor">#FFFFFF</color>
+    <color name="secondaryTextColor">#99D8FE</color>
+    <color name="tertiaryTextColor">#a4a4a4</color>
+
+
+    <color name="red_money">#d32f2f</color>
+    <color name="green_money">#388e3c</color>
+
+
+</resources>
