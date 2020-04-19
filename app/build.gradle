@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
 android {
+    signingConfigs {
+        release {
+            storeFile file('key.jks')
+            storePassword 'benrostudios'
+            keyAlias = 'key0'
+            keyPassword 'benrostudios'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     compileOptions {
@@ -22,6 +30,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            versionNameSuffix = '1.0'
         }
     }
 

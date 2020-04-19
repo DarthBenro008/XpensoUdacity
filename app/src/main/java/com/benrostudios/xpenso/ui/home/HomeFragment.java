@@ -63,6 +63,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.textview_balance)
     TextView balance;
 
+    @BindView(R.id.no_transactions)
+    TextView noTransac;
+
     private HomeViewModel homeViewModel;
 
     private Boolean isFirstTime;
@@ -87,7 +90,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private void setMonthUI() {
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
@@ -107,10 +109,17 @@ public class HomeFragment extends Fragment {
         homeViewModel.getRecentList().observe(getViewLifecycleOwner(), new Observer<List<Expenses>>() {
             @Override
             public void onChanged(List<Expenses> expenses) {
-                adapter = new HistoryAdapter(getContext(), expenses, R.string.title_home);
-                updateRecycler(adapter);
-                updateSharedPreference(expenses);
-                sendBroadcastToWidget();
+                if (expenses.size() == 0) {
+                    recentRecycler.setVisibility(View.GONE);
+                    noTransac.setVisibility(View.VISIBLE);
+                } else {
+                    recentRecycler.setVisibility(View.VISIBLE);
+                    noTransac.setVisibility(View.GONE);
+                    adapter = new HistoryAdapter(getContext(), expenses, R.string.title_home);
+                    updateRecycler(adapter);
+                    updateSharedPreference(expenses);
+                    sendBroadcastToWidget();
+                }
             }
         });
     }
@@ -127,6 +136,7 @@ public class HomeFragment extends Fragment {
             sharedUtils.saveFirstTime(false);
         }
     }
+
     private void updateSharedPreference(List<Expenses> expenses) {
         // Get a instance of SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -148,12 +158,12 @@ public class HomeFragment extends Fragment {
         getContext().sendBroadcast(updateAppWidgetIntent);
     }
 
-    private void updateIncomeExpensesUI(){
+    private void updateIncomeExpensesUI() {
         income.setText(sharedUtils.retriveIncome());
         expenses.setText(sharedUtils.retriveExpense());
         double income = Double.parseDouble(sharedUtils.retriveIncome());
         expense = Double.parseDouble(sharedUtils.retriveExpense());
-        double bal = income-expense;
+        double bal = income - expense;
         percentageMath(expense, income);
         balance.setText(String.valueOf(bal));
     }
@@ -163,8 +173,8 @@ public class HomeFragment extends Fragment {
         progressIndicator.setProgressTextAdapter(new PatternProgressTextAdapter("%.1f%%"));
     }
 
-    private void percentageMath(double current , double max){
-        double currento = (current/max)*100;
+    private void percentageMath(double current, double max) {
+        double currento = (current / max) * 100;
         long fin = Double.valueOf(currento).longValue();
         setProgressIndicator(fin, 100);
     }

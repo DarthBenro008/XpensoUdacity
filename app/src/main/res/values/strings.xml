@@ -86,5 +86,8 @@
     <string name="auth_failed">Authentication Failed!</string>
     <string name="auth_google_failed">Google Authentication Failed!</string>
 
+    //Record
+    <string name="go_record">Go, Record Your Expenses!</string>
+
 
 </resources>

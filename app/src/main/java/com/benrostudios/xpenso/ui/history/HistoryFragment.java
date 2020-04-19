@@ -30,6 +30,9 @@ public class HistoryFragment extends Fragment {
     @BindView(R.id.history_recycler)
     RecyclerView historyRecycler;
 
+    @BindView(R.id.go_rec)
+    TextView goRec;
+
     private HistoryViewModel historyViewModel;
     private HistoryAdapter adapter;
 
@@ -44,7 +47,11 @@ public class HistoryFragment extends Fragment {
             public void onChanged(List<Expenses> expenses) {
                 if (expenses.size() == 0) {
                     Toast.makeText(getContext(),R.string.no_transactions ,Toast.LENGTH_LONG).show();
+                    goRec.setVisibility(View.VISIBLE);
+                    historyRecycler.setVisibility(View.GONE);
                 } else {
+                    historyRecycler.setVisibility(View.VISIBLE);
+                    goRec.setVisibility(View.GONE);
                     Collections.reverse(expenses);
                     adapter = new HistoryAdapter(getContext(), expenses,R.string.title_history);
                     updateRecycler(adapter);
