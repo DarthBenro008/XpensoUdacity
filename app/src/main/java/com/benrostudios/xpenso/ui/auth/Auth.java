@@ -2,6 +2,7 @@ package com.benrostudios.xpenso.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -16,15 +17,22 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, SignIn.SwitchToSignUp, IncomeFragment.SetupCall {
     private FirebaseAuth mAuth;
     private FirebaseAnalytics mFirebaseAnalytics;
+    @BindView(R.id.main_toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_auth);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         mAuth = FirebaseAuth.getInstance();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         replaceFragment(new SignIn());
