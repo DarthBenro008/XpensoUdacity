@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator;
+import antonkozyriatskyi.circularprogressindicator.PatternProgressTextAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -53,11 +54,21 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.textview_month_display)
     TextView monthDisplay;
 
+    @BindView(R.id.textview_income)
+    TextView income;
+
+    @BindView(R.id.textview_expenses)
+    TextView expenses;
+
+    @BindView(R.id.textview_balance)
+    TextView balance;
+
     private HomeViewModel homeViewModel;
 
     private Boolean isFirstTime;
     private SharedUtils sharedUtils;
     private HistoryAdapter adapter;
+    private double expense;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,9 +76,9 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
-
+        sharedUtils = new SharedUtils(getContext());
+        updateIncomeExpensesUI();
         setIsFirstTime();
-        setProgressIndicator(100, 1000);
         setButtonUI();
         setRecentRecycler();
         setMonthUI();
@@ -75,10 +86,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void setProgressIndicator(long current, long max) {
-        progressIndicator.setProgress(current, max);
 
-    }
 
     private void setMonthUI() {
         Date date = Calendar.getInstance().getTime();
@@ -113,7 +121,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void setIsFirstTime() {
-        sharedUtils = new SharedUtils(getContext());
         isFirstTime = sharedUtils.retriveFirstTime();
         Log.d("this", "" + isFirstTime);
         if (isFirstTime) {
@@ -140,6 +147,28 @@ public class HomeFragment extends Fragment {
         updateAppWidgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         updateAppWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
         getContext().sendBroadcast(updateAppWidgetIntent);
+    }
+
+    private void updateIncomeExpensesUI(){
+        income.setText(sharedUtils.retriveIncome());
+        expenses.setText(sharedUtils.retriveExpense());
+        double income = Double.parseDouble(sharedUtils.retriveIncome());
+        expense = Double.parseDouble(sharedUtils.retriveExpense());
+        double bal = income-expense;
+        percentageMath(expense, income);
+        balance.setText(String.valueOf(bal));
+    }
+
+    private void setProgressIndicator(long current, long max) {
+        progressIndicator.setProgress(current, max);
+        progressIndicator.setProgressTextAdapter(new PatternProgressTextAdapter("%.1f%%"));
+        Log.d("ello",""+current);
+    }
+
+    private void percentageMath(double current , double max){
+        double currento = (current/max)*100;
+        long fin = Double.valueOf(currento).longValue();
+        setProgressIndicator(fin, 100);
     }
 
 }

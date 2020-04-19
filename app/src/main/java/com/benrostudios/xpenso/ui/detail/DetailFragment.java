@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.db.Expenses;
+import com.benrostudios.xpenso.utils.SharedUtils;
 
 import org.w3c.dom.Text;
 
@@ -41,6 +42,7 @@ public class DetailFragment extends Fragment {
 
     private DetailViewModel mViewModel;
     private Expenses expenses;
+    private SharedUtils utils;
 
     @BindView(R.id.expense_detail)
     TextView expense;
@@ -76,6 +78,7 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         expenses = (Expenses) getArguments().getSerializable(PASS_TAG);
         populateUI();
+        utils = new SharedUtils(getContext());
 
     }
 
@@ -88,6 +91,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mViewModel.delete(expenses);
+                decrementIncomeExpenses(expenses);
                 Navigation.findNavController(v).navigateUp();
             }
         });
@@ -112,6 +116,15 @@ public class DetailFragment extends Fragment {
     private String dateFormatter(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm aa dd MMM/yyyy");
         return sdf.format(date);
+    }
+
+    private void decrementIncomeExpenses(Expenses expenses){
+        long amount = Double.valueOf(expenses.getAmount()).longValue();
+        if(expenses.getType().equals(getResources().getString(R.string.income))){
+            utils.decrementIncome(amount);
+        }else{
+            utils.decrementExpenses(amount);
+        }
     }
 
 }

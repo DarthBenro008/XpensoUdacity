@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.benrostudios.xpenso.R;
 import com.benrostudios.xpenso.db.Expenses;
+import com.benrostudios.xpenso.utils.SharedUtils;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.w3c.dom.Text;
@@ -58,6 +59,7 @@ public class AddExpenses extends Fragment {
     private AddExpensesViewModel mViewModel;
     private boolean validation;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private SharedUtils utils;
 
     public static AddExpenses newInstance() {
         return new AddExpenses();
@@ -69,6 +71,7 @@ public class AddExpenses extends Fragment {
         View v = inflater.inflate(R.layout.add_expenses_fragment, container, false);
         ButterKnife.bind(this, v);
         setOnClick();
+        utils = new SharedUtils(getContext());
         return v;
     }
 
@@ -108,13 +111,23 @@ public class AddExpenses extends Fragment {
         Date currentTime = Calendar.getInstance().getTime();
         String incomeString = income.isChecked()? getResources().getString(R.string.income) :getResources().getString(R.string.expenditure);
         String modeString = cash.isChecked()? getResources().getString(R.string.cash):getResources().getString(R.string.online);
-        Expenses newTransaction = new Expenses(entity.getText().toString(), Double.valueOf(amount.getText().toString()), incomeString, modeString, currentTime, desc.getText().toString());
+        double amounto = Double.valueOf(amount.getText().toString());
+        Expenses newTransaction = new Expenses(entity.getText().toString(),amounto, incomeString, modeString, currentTime, desc.getText().toString());
         mViewModel.insertTransaction(newTransaction);
+        updateSharedPrefs(incomeString,amounto);
         mViewModel.pushData(newTransaction, currentTime.toString());
         Bundle bundle = new Bundle();
         bundle.putString("Transaction",newTransaction.getTime().toString());
         mFirebaseAnalytics.logEvent("Transaction",bundle);
         Navigation.findNavController(getView()).navigateUp();
+    }
+
+    public void updateSharedPrefs(String incoming, Double amount){
+        if(incoming.equals(getResources().getString(R.string.income) )){
+            utils.updateIncome(amount.longValue());
+        } else{
+            utils.updateExpense(amount.longValue());
+        }
     }
 
 }

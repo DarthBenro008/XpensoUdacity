@@ -8,6 +8,9 @@ public class SharedUtils {
     Context mContext;
     public static final String UID = "uid";
     public static final String FIRST_TIME = "first_time";
+    public static final String INCOME_SHARE = "income_time";
+    public static final String EXPENSE_SHARE = "expense_time";
+    public static final String BUDGET_SHARE = "budget_time";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -31,5 +34,47 @@ public class SharedUtils {
 
     public Boolean retriveFirstTime() {
         return sharedPreferences.getBoolean(FIRST_TIME, true);
+    }
+
+    public void updateIncome(long income){
+        long currentIncome = sharedPreferences.getLong(INCOME_SHARE,0);
+        currentIncome = currentIncome+income;
+        editor.putLong(INCOME_SHARE,currentIncome).commit();
+    }
+    public String retriveIncome(){
+        return String.valueOf(sharedPreferences.getLong(INCOME_SHARE,0));
+    }
+
+    public void updateExpense(long expense){
+        long currentExpense = sharedPreferences.getLong(EXPENSE_SHARE,0);
+        currentExpense = currentExpense+expense;
+        editor.putLong(EXPENSE_SHARE,currentExpense).commit();
+    }
+
+    public String retriveExpense(){
+        return String.valueOf(sharedPreferences.getLong(EXPENSE_SHARE,0));
+    }
+
+    public void decrementIncome(long income){
+        long currentIncome = sharedPreferences.getLong(INCOME_SHARE,0);
+        currentIncome = currentIncome-income;
+        editor.putLong(INCOME_SHARE,currentIncome).commit();
+    }
+
+    public void decrementExpenses(long expense){
+        long currentExpense = sharedPreferences.getLong(EXPENSE_SHARE,0);
+        currentExpense = currentExpense-expense;
+        editor.putLong(EXPENSE_SHARE,currentExpense).commit();
+    }
+
+    private void setBudget(long budget){
+        editor.putLong(BUDGET_SHARE,budget).commit();
+    }
+    private String getBudget(){
+        return String.valueOf(sharedPreferences.getLong(BUDGET_SHARE,0));
+    }
+
+    public void nukeSharedPrefs(){
+        editor.clear().commit();
     }
 }
