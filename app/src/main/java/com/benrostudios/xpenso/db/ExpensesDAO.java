@@ -28,4 +28,7 @@ public interface ExpensesDAO {
     @Query("SELECT * FROM expenses ORDER BY time DESC LIMIT 5")
     LiveData<List<Expenses>> getRecentTransactions();
 
+    @Query("DELETE FROM expenses")
+    void nukeTable();
+
 }

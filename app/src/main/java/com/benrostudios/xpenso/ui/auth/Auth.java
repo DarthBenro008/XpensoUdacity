@@ -1,6 +1,7 @@
 package com.benrostudios.xpenso.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -8,34 +9,36 @@ import android.os.Bundle;
 
 import com.benrostudios.xpenso.ui.MainActivity;
 import com.benrostudios.xpenso.R;
+import com.benrostudios.xpenso.ui.auth.income.IncomeFragment;
 import com.benrostudios.xpenso.ui.auth.signin.SignIn;
 import com.benrostudios.xpenso.ui.auth.signup.SignUp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, SignIn.SwitchToSignUp {
+public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, SignIn.SwitchToSignUp, IncomeFragment.SetupCall {
     private FirebaseAuth mAuth;
     private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_auth);
         mAuth = FirebaseAuth.getInstance();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         replaceFragment(new SignIn());
     }
 
-    public void replaceFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.auth_container,fragment).commit();
+    public void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.auth_container, fragment).commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             updateUI();
         }
     }
@@ -53,14 +56,21 @@ public class Auth extends AppCompatActivity implements SignUp.SwitchToSignIn, Si
 
     @Override
     public void authenticated() {
+        replaceFragment(new IncomeFragment());
+    }
+
+    public void updateUI() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void setUpCompleted() {
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Event.LOGIN,"loggedin");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN,bundle);
+        bundle.putString(FirebaseAnalytics.Event.LOGIN, "loggedin");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
         updateUI();
     }
 
-    public void updateUI(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }

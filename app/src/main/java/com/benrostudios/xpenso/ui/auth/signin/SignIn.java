@@ -131,13 +131,13 @@ public class SignIn extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getContext(), "Authentication Successful.",
+                            Toast.makeText(getContext(), R.string.auth_success,
                                     Toast.LENGTH_SHORT).show();
                             mCallback.authenticated();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }
@@ -170,7 +170,7 @@ public class SignIn extends Fragment {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Toast.makeText(getContext(),"Google Sign in failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),R.string.auth_google_failed,Toast.LENGTH_LONG).show();
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -192,7 +192,7 @@ public class SignIn extends Fragment {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getContext(),"Authentication Failed",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),R.string.auth_failed,Toast.LENGTH_LONG).show();
                         }
                     }
                 });

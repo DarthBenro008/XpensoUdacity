@@ -109,12 +109,12 @@ public class SignUp extends Fragment {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             mCallback.authenticated();
-                            Toast.makeText(getContext(), "Authentication Successful.",
+                            Toast.makeText(getContext(), R.string.auth_success,
                                     Toast.LENGTH_SHORT).show();
                         } else {
 
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
 
                         }

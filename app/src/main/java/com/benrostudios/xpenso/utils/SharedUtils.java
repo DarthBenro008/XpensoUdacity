@@ -67,11 +67,11 @@ public class SharedUtils {
         editor.putLong(EXPENSE_SHARE,currentExpense).commit();
     }
 
-    private void setBudget(long budget){
-        editor.putLong(BUDGET_SHARE,budget).commit();
+    public void setUsername(String name){
+        editor.putString(BUDGET_SHARE,name).commit();
     }
-    private String getBudget(){
-        return String.valueOf(sharedPreferences.getLong(BUDGET_SHARE,0));
+    public String retriveName(){
+        return sharedPreferences.getString(BUDGET_SHARE,"User");
     }
 
     public void nukeSharedPrefs(){

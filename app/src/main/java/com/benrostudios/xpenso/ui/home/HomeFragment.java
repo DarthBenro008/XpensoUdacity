@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment {
 
     private void setIsFirstTime() {
         isFirstTime = sharedUtils.retriveFirstTime();
-        Log.d("this", "" + isFirstTime);
         if (isFirstTime) {
             homeViewModel.sync();
             sharedUtils.saveFirstTime(false);
@@ -162,7 +161,6 @@ public class HomeFragment extends Fragment {
     private void setProgressIndicator(long current, long max) {
         progressIndicator.setProgress(current, max);
         progressIndicator.setProgressTextAdapter(new PatternProgressTextAdapter("%.1f%%"));
-        Log.d("ello",""+current);
     }
 
     private void percentageMath(double current , double max){

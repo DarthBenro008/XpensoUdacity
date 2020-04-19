@@ -2,7 +2,7 @@
     <string name="app_name">Xpenso</string>
     <string name="title_home">Home</string>
     <string name="title_history">History</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_settings">Profile</string>
     <string name="title_add_expenses">Add Expenses</string>
     <string name="title_detail">Detailed Information</string>
     <string name="title_activity_login">Sign in</string>
@@ -65,7 +65,26 @@
     <string name="cd_progress">Circular Progressbar</string>
     <string name="cd_indicator">Income/Expense Indicator</string>
 
+    //SettingsFragment
+    <string name="logout">Logout</string>
+    <string name="greetings">Hello, </string>
 
+    //IncomeFragment
+    <string name="greeting">Greetings!</string>
+    <string name="set_user">Please Enter a Username : </string>
+    <string name="set_income">Please enter your monthly income : </string>
+    <string name="getting_started">Let\'s get started!</string>
+    <string name="manage_expenses">Let\'s manage Xpenses!</string>
+
+    //ValidationStrings
+    <string name="enter_valid_username">Please enter a Valid Username</string>
+    <string name="enter_valid_amount">Please enter an amount more than 0</string>
+    <string name="enter_valid_entity">Please fill in entity!</string>
+
+    //AuthStrings
+    <string name="auth_success">Authentication Success</string>
+    <string name="auth_failed">Authentication Failed!</string>
+    <string name="auth_google_failed">Google Authentication Failed!</string>
 
 
 </resources>

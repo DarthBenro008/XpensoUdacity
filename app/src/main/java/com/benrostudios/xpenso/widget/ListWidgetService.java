@@ -45,7 +45,6 @@ public class ListWidgetService extends RemoteViewsService {
 
             // Convert transaction string to the list of ingredients
             expensesList = TransactionUtils.toExpensesList(ingredientString);
-            Log.d("Bhenchod",expensesList.toString());
 
         }
 

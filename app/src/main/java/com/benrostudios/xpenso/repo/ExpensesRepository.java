@@ -53,6 +53,15 @@ public class ExpensesRepository {
         });
     }
 
+    public void nukeTable(){
+        ExpensesDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                expensesDAO.nukeTable();
+            }
+        });
+    }
+
     public LiveData<Expenses> favMovieCheck(Date date) {
         return expensesDAO.getTransaction(date);
     }

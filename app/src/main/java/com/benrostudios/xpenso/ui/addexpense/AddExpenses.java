@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.benrostudios.xpenso.db.Expenses;
 import com.benrostudios.xpenso.utils.SharedUtils;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -95,11 +93,11 @@ public class AddExpenses extends Fragment {
     private void validation(){
         validation = true;
         if(entity.getText().toString().isEmpty()){
-            entity.setError("Please fill in Entity!");
+            entity.setError(getResources().getString(R.string.enter_valid_entity));
             validation = false;
         }
         if(amount.getText().toString().isEmpty() || amount.getText().toString().equals("0")){
-            amount.setError("Amount should be more than 0!");
+            amount.setError(getResources().getString(R.string.enter_valid_amount));
             validation = false;
         }
         if(validation){
